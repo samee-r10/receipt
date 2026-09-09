@@ -259,6 +259,21 @@ function clearReceipts() {
   }
 }
 
+function getReceiptFileName(r, ext = 'jpg') {
+  if (!r) return `Receipt.${ext}`;
+  const cleanDonor = (r.donorName || '').trim().replace(/[/\\?%*:|"<>]/g, '').replace(/\s+/g, '_');
+  const cleanFlat = (r.flatNumber || '').trim().replace(/[/\\?%*:|"<>]/g, '').replace(/\s+/g, '_');
+  
+  if (cleanDonor && cleanFlat) {
+    return `${cleanDonor}_${cleanFlat}.${ext}`;
+  } else if (cleanDonor) {
+    return `${cleanDonor}.${ext}`;
+  } else if (cleanFlat) {
+    return `${cleanFlat}.${ext}`;
+  }
+  return `${r.receiptNumber || 'Receipt'}.${ext}`;
+}
+
 function downloadJpeg() {
   if (!currentReceipt) return;
   const paper = document.getElementById('receiptPaper');
@@ -275,7 +290,7 @@ function downloadJpeg() {
     logging: false
   }).then(canvas => {
     const link = document.createElement('a');
-    link.download = `${currentReceipt.receiptNumber}_Receipt.jpg`;
+    link.download = getReceiptFileName(currentReceipt, 'jpg');
     link.href = canvas.toDataURL('image/jpeg', 0.95);
     link.click();
   }).catch(err => {
