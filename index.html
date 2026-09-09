@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#c6511c" />
+    <title>United Youth Club | Donation Receipts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .receipt-generated { text-align:center; color:#9b8879; font-size:9px; letter-spacing:.5px; margin:15px 0 0; }
+      @page { size: A4 portrait; margin: 12mm; }
+      @media print {
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        body, .app-shell, main, .page, .page.active { display:block !important; margin:0 !important; padding:0 !important; max-width:none !important; background:#fff !important; }
+        .no-print, .topbar, .page:not(#preview) { display:none !important; }
+        .receipt-wrap { display:block !important; background:#fff !important; padding:0 !important; margin:0 !important; }
+        .receipt { width:100% !important; max-width:186mm !important; margin:0 auto !important; box-shadow:none !important; border:1px solid #bd6d2c !important; min-height:0 !important; }
+        .receipt-inner { min-height:260mm !important; }
+        .receipt-title { background:#9d3019 !important; color:#fff !important; }
+        .amount-box { background:#fff6e8 !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar no-print">
+        <button class="brand" data-page="home" aria-label="Go to home"><span class="brand-mark">ॐ</span><span>United Youth Club<small>Ganesh Utsav 2026</small></span></button>
+        <button class="menu-button" id="menuButton" aria-label="Toggle menu">☰</button>
+        <nav id="mainNav"><button data-page="home" class="active">Home</button><button data-page="create">Create receipt</button><button data-page="history">Receipt history</button></nav>
+      </header>
+
+      <main>
+        <section class="page active" id="home">
+          <div class="hero">
+            <div class="hero-copy"><p class="mantra">॥ श्री गणेशाय नमः ॥</p><p class="eyebrow">Dharam Deep Complex · Nallasopara East</p><h1>Small acts of giving,<br /><em>celebrated beautifully.</em></h1><p class="hero-text">Create a professional Ganesh Utsav donation receipt in moments.</p><div class="hero-actions"><button class="button primary" data-page="create">＋ Create donation receipt</button><button class="button ghost" data-page="history">View receipt history <span>→</span></button></div></div>
+            <div class="ganesha-art" aria-hidden="true"><div class="sun"></div><div class="lotus l1">✦</div><div class="lotus l2">✦</div><div class="ganesha">ॐ</div><p>GANPATI BAPPA<br/>MORYA</p></div>
+          </div>
+          <section class="stats-grid" aria-label="Donation summary"><article><span class="stat-icon">▣</span><p>Total receipts</p><strong id="statReceipts">0</strong><small>All time</small></article><article><span class="stat-icon">₹</span><p>Total collection</p><strong id="statAmount">₹0</strong><small>All time</small></article><article><span class="stat-icon">◷</span><p>Today's donations</p><strong id="statToday">0</strong><small id="statTodayAmount">₹0 collected today</small></article></section>
+          <section class="quick-card"><div><span class="round-icon">↗</span><div><h2>Ready for the next contribution?</h2><p>Issue a numbered receipt in less than a minute.</p></div></div><button class="text-button" data-page="create">Create receipt <span>→</span></button></section>
+        </section>
+
+        <section class="page" id="create">
+          <div class="page-heading"><div><p class="eyebrow" id="formEyebrow">New contribution</p><h1 id="formHeading">Create donation receipt</h1><p id="formSubtext">Enter the donor details below. Your receipt number is assigned automatically.</p></div><button class="button ghost" data-page="home">← Dashboard</button></div>
+          <div class="form-layout"><form id="receiptForm" novalidate class="form-card"><div class="form-top"><div><span id="numberLabel">Next receipt number</span><strong id="nextNumber">UYC-0001</strong></div><div class="ganesh-mini">ॐ</div></div><label>Donation date<input id="donationDate" type="date" required /></label><label>Donor name<input id="donorName" type="text" placeholder="Enter donor's full name" autocomplete="name" required /><small class="error" id="donorError"></small></label><label>Flat number<input id="flatNumber" type="text" placeholder="e.g. A-101, Shop-5" required /><small class="error" id="flatError"></small></label><label>Donation amount<div class="currency-input"><span>₹</span><input id="amount" type="number" min="1" step="1" placeholder="0" inputmode="numeric" required /></div><small class="error" id="amountError"></small></label><button class="button primary full" type="submit" id="submitBtn">Generate receipt <span>→</span></button><button class="button ghost full" type="button" id="cancelEditBtn" style="display:none; margin-top:8px;">Cancel editing</button><p class="form-note">The receipt is saved securely on this device as soon as it is generated.</p></form>
+          <aside class="form-aside"><span class="aside-icon">✦</span><h2>Fast & simple</h2><p>Only the details that matter. Every generated receipt is saved in your history.</p><div><span>1</span> Enter donor details</div><div><span>2</span> Generate & preview</div><div><span>3</span> Print or save as Image/PDF</div></aside></div>
+        </section>
+
+        <section class="page" id="preview">
+          <div class="page-heading no-print"><div><p class="eyebrow">Receipt generated</p><h1>Your receipt is ready</h1><p>Review it, then print or save it as a PDF or JPEG image.</p></div><button class="button ghost" data-page="history">View all receipts</button></div>
+          <div class="preview-actions no-print"><button class="button primary" id="printButton">Print receipt</button><button class="button secondary" id="downloadJpegButton">📷 Download JPEG</button><button class="button secondary" id="downloadButton">Download PDF</button><button class="button ghost" id="editCurrentButton">✎ Edit receipt</button><button class="button ghost" id="newReceiptButton">＋ New receipt</button></div>
+          <div class="receipt-wrap"><article class="receipt" id="receiptPaper"></article></div>
+        </section>
+
+        <section class="page" id="history">
+          <div class="page-heading"><div><p class="eyebrow">Donation records</p><h1>Receipt history</h1><p>Search and revisit every receipt issued from this device.</p></div><div class="heading-actions"><button class="button danger-ghost" id="clearHistoryBtn">🗑 Clear history</button><button class="button primary" data-page="create">＋ Create receipt</button></div></div>
+          <div class="history-summary"><article><span>Total receipts</span><strong id="historyCount">0</strong></article><article><span>Total collection</span><strong id="historyTotal">₹0</strong></article></div>
+          <div class="history-tools"><div class="search"><span>⌕</span><input id="searchReceipts" placeholder="Search donor, flat no. or receipt no." /></div><div class="filter-buttons"><button data-filter="all" class="active">All time</button><button data-filter="today">Today</button><button data-filter="week">This week</button><button data-filter="month">This month</button></div></div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+      </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
