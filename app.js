@@ -224,6 +224,7 @@ function renderHistory() {
         <button data-view="${r.id}">View</button>
         <button data-edit="${r.id}">Edit</button>
         <button data-print="${r.id}">Print</button>
+        <button data-image="${r.id}">Image</button>
       </span>
     </article>
   `).join('') : '<div class="empty"><span>ॐ</span>No receipts found yet.</div>';
@@ -233,6 +234,10 @@ function renderHistory() {
   document.querySelectorAll('[data-print]').forEach(b => b.onclick = () => {
     openReceipt(b.dataset.print);
     setTimeout(() => window.print(), 150);
+  });
+  document.querySelectorAll('[data-image]').forEach(b => b.onclick = () => {
+    openReceipt(b.dataset.image);
+    setTimeout(() => downloadJpeg(), 150);
   });
 }
 
